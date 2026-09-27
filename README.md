@@ -1,39 +1,23 @@
-# Raquel-AI---System-Prompt-English-Version-
-Raquel AI is a virtual assistant developed in Python as part of a personal journey in Artificial Intelligence and Software Engineering.  The project combines conversational AI, personality design, user interface development, and prompt engineering to create a friendly and engaging assistant capable of helping users with technology, and programming 
+# Raquel AI
 
-# 🤖 Raquel AI
+Desktop learning project in Python with a CustomTkinter interface, a Gemini-powered conversational assistant. The code is a prototype; it is not a clinical or professional service.
 
-Raquel AI is a virtual assistant developed in Python with a custom personality, graphical interface, and Generative AI integration.
+## Run locally
 
-## Features
+Use a Python environment with a graphical desktop. From the repository root:
 
-- Conversational AI Assistant
-- Custom Personality System
-- Modern Dark-Themed Interface
-- Typing Animation
-- AI-Powered Responses
-- Research and Learning Support
-- Technology and Programming Guidance
+```bash
+python -m venv .venv
+python -m pip install -r requirements.txt
+python RaquelAI.py
+```
 
-## Technologies
+Activate the virtual environment before installing packages if desired. For the AI feature, set `GEMINI_API_KEY` in your operating-system environment. Example in PowerShell: `$env:GEMINI_API_KEY = "your-key"`; in Bash: `export GEMINI_API_KEY="your-key"`. Never commit a real key. Without a key, the interface opens but AI replies indicate that configuration is missing.
 
-- Python
-- CustomTkinter
-- Pillow
-- Generative AI APIs
-- Prompt Engineering
+## Scope and verification
 
-## Philosophy
+The repo contains a desktop chat interface and prompt/persona logic. Optional `assets/raquel.png` is not included; the interface uses a text fallback or placeholder if absent. The code has been checked for Python syntax; the graphical interface and external API were not run here. API access may incur provider limits or costs.
 
-> Learn by building.
->
-> Experiment continuously.
->
-> Transform curiosity into innovation.
+## Next evidence for a portfolio
 
-## Author
-
-Raquel
-Systems Analysis and Development Student
-Campinas, Brazil
-Technology • AI • Software Development
+Add a screenshot or short screen recording of a local run, note your OS and Python version, and describe a concrete interaction. Avoid presenting generated answers as verified facts.
