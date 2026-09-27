@@ -9,10 +9,13 @@ import threading
 # GEMINI API
 # =====================================================
 
-API_KEY = "YOUR_API_KEY"
+API_KEY = os.getenv("GEMINI_API_KEY", "")
 
-genai.configure(api_key=API_KEY)
-model = genai.GenerativeModel("gemini-2.5-flash")
+if API_KEY:
+    genai.configure(api_key=API_KEY)
+    model = genai.GenerativeModel("gemini-2.5-flash")
+else:
+    model = None
 
 
 # =====================================================
@@ -61,6 +64,8 @@ is_typing = False
 # =====================================================
 
 def ask_ai(message):
+    if model is None:
+        return "Set GEMINI_API_KEY in your environment before using the AI assistant."
     try:
         response = model.generate_content(
             SYSTEM_PROMPT + "\nUser: " + message
@@ -80,17 +85,19 @@ def ask_ai(message):
 # =====================================================
 
 def process_message(message):
-    global is_typing
-
     response = ask_ai(message)
+    app.after(0, lambda: finish_message(response))
 
+
+def finish_message(response):
+    global is_typing
     chat.insert("end", f"Raquel AI: {response}\n\n")
     chat.see("end")
-
     send_button.configure(state="normal")
     is_typing = False
 
 
+# =====================================================
 # =====================================================
 # SEND MESSAGE
 # =====================================================
@@ -171,22 +178,17 @@ header.pack(
     fill="x"
 )
 
-img_path = os.path.join(
-    "assets",
-    "raquel.png"
-)
+img_path = os.path.join(os.path.dirname(__file__), "assets", "raquel.png")
 
-avatar_img = ctk.CTkImage(
-    light_image=Image.open(img_path),
-    dark_image=Image.open(img_path),
-    size=(210,180)
-)
-
-avatar = ctk.CTkLabel(
-    header,
-    image=avatar_img,
-    text=""
-)
+if os.path.exists(img_path):
+    avatar_img = ctk.CTkImage(
+        light_image=Image.open(img_path),
+        dark_image=Image.open(img_path),
+        size=(210, 180)
+    )
+    avatar = ctk.CTkLabel(header, image=avatar_img, text="")
+else:
+    avatar = ctk.CTkLabel(header, text="Raquel AI", font=("Arial", 24))
 
 avatar.pack(
     side="left",
